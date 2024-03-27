@@ -27,17 +27,18 @@ jobs:
 
       - name: Test
         run: go test -v ./...
+  
   build-on-windows:
     runs-on: windows-latest
     steps:
       - name: Set up Go
         uses: actions/setup-go@v4
         with:
-        go-version: "1.22"
+         go-version: "1.22"
       
       - name: Build
         run: go build -v ./...
       
       - name: Test
-       run: go test -v ./...
+        run: go test -v ./...
       
