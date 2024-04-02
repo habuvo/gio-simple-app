@@ -16,13 +16,13 @@ func handle(w *app.Window) error {
 	th.Shaper = text.NewShaper(text.WithCollection(gofont.Collection()))
 
 	events := make(chan event.Event)
-	acks := make(chan struct{})
+	latch := make(chan struct{})
 
 	go func() {
 		for {
 			ev := w.NextEvent()
 			events <- ev
-			<-acks
+			<-latch
 			if _, ok := ev.(app.DestroyEvent); ok {
 				return
 			}
@@ -35,14 +35,14 @@ func handle(w *app.Window) error {
 		case e := <-events:
 			switch e := e.(type) {
 			case app.DestroyEvent:
-				acks <- struct{}{}
+				latch <- struct{}{}
 				return e.Err
 			case app.FrameEvent:
 				gtx := app.NewContext(&ops, e)
 				mainWidget(gtx, th)
 				e.Frame(gtx.Ops)
 			}
-			acks <- struct{}{}
+			latch <- struct{}{}
 		case ut := <-updatesTicker:
 			idx := slices.IndexFunc(myTickers, func(t ticker) bool { return ut.name == t.name })
 			myTickers[idx].value = ut.value
