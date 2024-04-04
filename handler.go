@@ -13,6 +13,7 @@ import (
 
 func handle(w *app.Window) error {
 	th := material.NewTheme()
+	th.ContrastBg = bgColor
 	th.Shaper = text.NewShaper(text.WithCollection(gofont.Collection()))
 
 	events := make(chan event.Event)

@@ -33,10 +33,11 @@ var (
 		},
 	}
 
-	greenColor = color.NRGBA{A: 0xff, R: 0x00, G: 0xff, B: 0x00}
-	redColor   = color.NRGBA{A: 0xff, R: 0xff, G: 0x00, B: 0x00}
-	grayColor  = color.NRGBA{A: 0xff, R: 203, G: 205, B: 207}
+	greenColor = color.NRGBA{A: 0xff, R: 0x92, G: 0xdf, B: 0x70}
+	redColor   = color.NRGBA{A: 0xff, R: 0xf9, G: 0x8d, B: 0x7f}
+	grayColor  = color.NRGBA{A: 0xff, R: 0xcb, G: 0xcd, B: 0xcf}
 	blackColor = color.NRGBA{A: 0xff, R: 0x00, G: 0x00, B: 0x00}
+	bgColor    = color.NRGBA{R: 0x43, G: 0x54, B: 0x6A, A: 0xff}
 
 	in     = layout.UniformInset(unit.Dp(8))
 	border = widget.Border{Color: color.NRGBA{A: 0xff}, CornerRadius: unit.Dp(8), Width: unit.Dp(2)}
