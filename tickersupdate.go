@@ -11,7 +11,7 @@ var (
 )
 
 func update() {
-	tc := time.NewTicker(time.Second * 2)
+	tc := time.NewTicker(time.Second)
 
 	for range tc.C {
 		if len(myTickers) == 0 {
