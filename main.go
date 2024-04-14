@@ -16,7 +16,7 @@ func main() {
 	go update()
 
 	go func() {
-		w := app.NewWindow(app.Size(unit.Dp(700), unit.Dp(1200)), app.Title("easy trader"))
+		w := app.NewWindow(app.Size(unit.Dp(700), unit.Dp(1000)), app.Title("easy trader"))
 		if err := handle(w); err != nil {
 			log.Fatal(err)
 		}

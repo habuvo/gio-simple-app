@@ -15,8 +15,9 @@ func deleteInSlice[S any](slice []S, idx int) []S {
 	}
 
 	s := slice[:idx]
+
 	if idx != len(slice)-1 {
-		s = append(s, slice[idx:]...)
+		s = append(s, slice[idx+1:]...)
 	}
 
 	return s
