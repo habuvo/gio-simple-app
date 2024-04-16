@@ -102,35 +102,31 @@ func mainWidget(gtx layout.Context, th *material.Theme) layout.Dimensions {
 									return material.Button(th, cancelButton, "cancel").Layout(gtx)
 								})
 							}),
-							layout.Rigid(layout.Spacer{Height: unit.Dp(10)}.Layout),
-							layout.Rigid(func(gtx layout.Context) layout.Dimensions {
-								return in.Layout(gtx, func(gtx layout.Context) layout.Dimensions {
-									return layout.Flex{}.
-										Layout(gtx,
-											layout.Rigid(material.RadioButton(th, bidaskGroup, "bid", "bid").Layout),
-											layout.Rigid(material.RadioButton(th, bidaskGroup, "ask", "ask").Layout),
-											layout.Flexed(10, func(gtx layout.Context) layout.Dimensions {
-												l := material.Label(th, 18, orderAsset)
-												l.Alignment = text.Alignment(layout.Middle)
-												return l.Layout(gtx)
-											}),
-											layout.Rigid(func(gtx layout.Context) layout.Dimensions {
-												e := material.Editor(th, &amountInput, "amount")
-												e.Font.Style = font.Italic
-												border := widget.Border{Color: color.NRGBA{A: 0xff}, CornerRadius: unit.Dp(8), Width: unit.Dp(2)}
-												return border.Layout(gtx, func(gtx layout.Context) layout.Dimensions {
-													return layout.UniformInset(unit.Dp(8)).Layout(gtx, e.Layout)
-												})
-											}),
-										)
-								})
-							}),
 						)
 					})
 				}),
-				layout.Rigid(
-					layout.Spacer{Height: unit.Dp(25)}.Layout,
-				),
+				layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+					return in.Layout(gtx, func(gtx layout.Context) layout.Dimensions {
+						return layout.Flex{Spacing: layout.SpaceAround, Alignment: layout.Middle}.
+							Layout(gtx,
+								layout.Flexed(10, material.RadioButton(th, bidaskGroup, "bid", "bid").Layout),
+								layout.Flexed(10, material.RadioButton(th, bidaskGroup, "ask", "ask").Layout),
+								layout.Flexed(10, func(gtx layout.Context) layout.Dimensions {
+									l := material.Label(th, 18, orderAsset)
+									l.Alignment = text.Alignment(layout.Middle)
+									return l.Layout(gtx)
+								}),
+								layout.Flexed(10, func(gtx layout.Context) layout.Dimensions {
+									e := material.Editor(th, &amountInput, "amount")
+									e.Font.Style = font.Italic
+									border := widget.Border{Color: color.NRGBA{A: 0xff}, CornerRadius: unit.Dp(8), Width: unit.Dp(2)}
+									return border.Layout(gtx, func(gtx layout.Context) layout.Dimensions {
+										return layout.UniformInset(unit.Dp(8)).Layout(gtx, e.Layout)
+									})
+								}),
+							)
+					})
+				}),
 				layout.Rigid(func(gtx layout.Context) layout.Dimensions {
 					return border.Layout(gtx, func(gtx layout.Context) layout.Dimensions {
 						return layout.Flex{Alignment: layout.Baseline}.Layout(gtx,
