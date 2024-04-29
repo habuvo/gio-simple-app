@@ -56,7 +56,7 @@ const (
 	gridY = 6
 )
 
-func mainWidget(gtx layout.Context, th *material.Theme) layout.Dimensions {
+func drawTopScreen(gtx layout.Context, th *material.Theme) layout.Dimensions {
 	if orderButton.Clicked(gtx) {
 		orderClicked()
 	}

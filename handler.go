@@ -40,7 +40,7 @@ func handle(w *app.Window) error {
 				return e.Err
 			case app.FrameEvent:
 				gtx := app.NewContext(&ops, e)
-				mainWidget(gtx, th)
+				drawTopScreen(gtx, th)
 				e.Frame(gtx.Ops)
 			}
 			latch <- struct{}{}
