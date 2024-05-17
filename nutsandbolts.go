@@ -18,7 +18,7 @@ var (
 					return gtx.Dp(cellSize)
 				},
 				func(gtx layout.Context, row, col int) layout.Dimensions {
-					name, value, diff := getValuesByIndex((row * gridX) + col)
+					name, value, diff := getValuesByIndex((row * gridY) + col)
 					return makeCell(th, gtx, name, value, diff)
 				})
 		}
