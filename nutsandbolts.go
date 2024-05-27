@@ -4,13 +4,15 @@ import (
 	"strconv"
 
 	"gioui.org/layout"
-	"gioui.org/text"
 	"gioui.org/unit"
+	"gioui.org/widget"
 	"gioui.org/widget/material"
 	"gioui.org/x/component"
 )
 
 var (
+	chatText = new(widget.Editor)
+
 	makeGrid = func(th *material.Theme) layout.Widget {
 		return func(gtx layout.Context) layout.Dimensions {
 			return component.Grid(th, &assetsGrid).Layout(gtx, gridX, gridY,
@@ -38,15 +40,15 @@ var (
 		}
 	}
 
-	adviser = func(th *material.Theme) layout.Widget {
+	chatLogger = func(th *material.Theme) layout.Widget {
 		return func(gtx layout.Context) layout.Dimensions {
 			return layout.Center.Layout(gtx, func(gtx layout.Context) layout.Dimensions {
 				gtx.Constraints.Min.Y = gtx.Dp(unit.Dp(50))
-				gtx.Constraints.Min.X = gtx.Dp(unit.Dp(400))
-				adviseEditor.SetText("here will be a wise advice")
-				adviseEditor.Alignment = text.Middle
+				gtx.Constraints.Max.Y = gtx.Dp(unit.Dp(100))
+				gtx.Constraints.Min.X = gtx.Dp(unit.Dp(600))
+				chatText.SetText(chatLog.String())
 				return border.Layout(gtx, func(gtx layout.Context) layout.Dimensions {
-					return material.Editor(th, &adviseEditor, "advise").Layout(gtx)
+					return material.Editor(th, chatText, "").Layout(gtx)
 				})
 			})
 		}

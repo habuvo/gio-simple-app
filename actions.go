@@ -1,6 +1,7 @@
 package main
 
 import (
+	"math/rand"
 	"slices"
 	"strconv"
 	"strings"
@@ -53,6 +54,24 @@ func tickerClicked() {
 	}
 
 	tickerInput.SetText("")
+}
+
+func chatClicked() {
+	prompt := strings.TrimSpace(chatInput.Text())
+	if chatLog.Len() > 0 {
+		chatLog.WriteString("\n")
+	}
+	chatLog.WriteString(prompt)
+	chatLog.WriteString("\n")
+	chatLog.WriteString(responses[rand.Intn(3)])
+
+	chatInput.SetText("")
+}
+
+var responses = []string{
+	"Every step you do is getting you closer to the goal",
+	"No pain no gain, you know?",
+	"You can't do it if you're not good enough",
 }
 
 func deleteClicked() {

@@ -2,6 +2,7 @@ package main
 
 import (
 	"image/color"
+	"strings"
 
 	"gioui.org/font"
 	"gioui.org/layout"
@@ -13,9 +14,13 @@ import (
 )
 
 var (
-	amountInput  = widget.Editor{SingleLine: true, Submit: true}
-	assetInput   = widget.Editor{SingleLine: true, Submit: true}
-	tickerInput  = widget.Editor{SingleLine: true, Submit: true}
+	amountInput = widget.Editor{SingleLine: true, Submit: true}
+	assetInput  = widget.Editor{SingleLine: true, Submit: true}
+	tickerInput = widget.Editor{SingleLine: true, Submit: true}
+	chatInput   = widget.Editor{SingleLine: true, Submit: true}
+
+	chatLog = new(strings.Builder)
+
 	orderButton  = new(widget.Clickable)
 	deleteButton = new(widget.Clickable)
 	cancelButton = new(widget.Clickable)
@@ -71,6 +76,10 @@ func drawTopScreen(gtx layout.Context, th *material.Theme) layout.Dimensions {
 
 	if cancelButton.Clicked(gtx) {
 		cancelClicked()
+	}
+
+	if geminiButton.Clicked(gtx) {
+		chatClicked()
 	}
 
 	processMyTickersButtons(gtx)
@@ -169,11 +178,19 @@ func drawTopScreen(gtx layout.Context, th *material.Theme) layout.Dimensions {
 			return layout.Spacer{Height: unit.Dp(10)}.Layout(gtx)
 		},
 		func(gtx layout.Context) layout.Dimensions {
+			e := material.Editor(th, &chatInput, "write something")
+			e.Font.Style = font.Italic
+			border := widget.Border{Color: color.NRGBA{A: 0xff}, CornerRadius: unit.Dp(8), Width: unit.Dp(2)}
+			return border.Layout(gtx, func(gtx layout.Context) layout.Dimensions {
+				return layout.UniformInset(unit.Dp(8)).Layout(gtx, e.Layout)
+			})
+		},
+		func(gtx layout.Context) layout.Dimensions {
 			return layout.Center.Layout(gtx, func(gtx layout.Context) layout.Dimensions {
 				return material.Button(th, geminiButton, "ask Gemini for advice").Layout(gtx)
 			})
 		},
-		adviser(th),
+		chatLogger(th),
 	}
 
 	return material.List(th, list).Layout(gtx, len(widgets),
