@@ -47,9 +47,7 @@ var (
 				gtx.Constraints.Max.Y = gtx.Dp(unit.Dp(100))
 				gtx.Constraints.Min.X = gtx.Dp(unit.Dp(600))
 				chatText.SetText(chatLog.String())
-				return border.Layout(gtx, func(gtx layout.Context) layout.Dimensions {
-					return material.Editor(th, chatText, "").Layout(gtx)
-				})
+				return material.Editor(th, chatText, "").Layout(gtx)
 			})
 		}
 	}
